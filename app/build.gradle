@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace 'choigoyo.study.todo'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "choigoyo.study.todo"
@@ -52,4 +52,6 @@ dependencies {
     implementation 'androidx.fragment:fragment-ktx:1.5.5' // viewModels()
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation "androidx.databinding:databinding-runtime:8.0.0" // DataBinding
+
 }
