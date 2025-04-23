@@ -8,15 +8,27 @@ import choigoyo.study.todo.databinding.ActivityMainBinding
 import choigoyo.study.todo.viewModel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-    private val mainVM : MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
+    private val adapter = RecyclerAdapter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // 레이아웃 파일을 데이터 바인딩 객체(binding)와 연결
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
-        // 데이터 바인딩에서 LiveData를 사용하기 위해 생명주기 소유자를 설정
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.viewModel = viewModel
         binding.lifecycleOwner = this
-        // 레이아웃을 화면에 표시
-        binding.viewModel = mainVM
+        binding.recyclerView.adapter = adapter
+
+        viewModel.todoList.observe(this) {
+            adapter.submitList(it.toList()) // 새 리스트로 갱신
+        }
+
+        binding.addButton.setOnClickListener {
+            val content = binding.editText.text.toString()
+            viewModel.addTodo(content)
+            binding.editText.text.clear()
+        }
     }
 }

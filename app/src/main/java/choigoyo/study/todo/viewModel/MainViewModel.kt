@@ -20,11 +20,13 @@ class MainViewModel : ViewModel() {
     }
 
     // TODO: 추가
-    fun addTodoItem(content: String) {
-        if (content.isEmpty()) {
-            items.add(TodoItemModel(content = content))
-            _todoList.postValue(items)
+    fun addTodo(content: String){
+        if(content == ""){
+            return
         }
+        val todo = TodoItemModel(content)
+        items.add(todo)
+        _todoList.postValue(items)
     }
 
     // TODO: 삭제
